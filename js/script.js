@@ -4,12 +4,17 @@ $(function(){
 		$(sp).css('background-color', color);
 	})
 
-	$('.module').slick({
-		infinite: false
+	$('.module').each(function(i, module) {
+		if ($(module).children().length > 1) {
+			$(module).slick({
+				infinite: false
+			});
+		}
 	});
 
 	$('.gallery').slick({
-		slidesToShow: 2
+		slidesToShow: 2,
+		draggable: false
 	});
 
 	$('.gallery__item').fancybox();
