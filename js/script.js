@@ -17,7 +17,11 @@ $(function(){
 		draggable: false
 	});
 
-	$('.gallery__item').fancybox();
+	$('.gallery__item').on('click', function() {
+		var img = $(this).find('img').clone();
+
+		$.fancybox.open(img)
+	});
 
 	function bubles() {
 		var scene = $('#scene').get(0),
@@ -33,7 +37,7 @@ $(function(){
 
 	// анимации
 	sr.reveal('.section__title h2, .section__cell, .about__text, .about__person-img, .events__info, .section .btn');
-	sr.reveal('.gallery');
+	// sr.reveal('.gallery');
 
 	sr.reveal('.welcome .sphere', 520);
 	sr.reveal('.mission .sphere');
@@ -59,6 +63,21 @@ $(function(){
 
 			$(modal).find('.modal__title').text(caption);
 			$(modal).find('.modal__content').html(content);
+		} else if (id === 'answer-modal') {
+			var item = $(this).closest('.quest__item'),
+				caption = $(item).find('.quest__title span').text(),
+				content = $(item).find('.quest__content-full').html();
+
+			$(modal).find('.modal__title').text(caption);
+			$(modal).find('.modal__content').html(content);
+		} else if (id === 'teacher-modal') {
+			var item = $(this).closest('.teachers__member'),
+				caption = $(item).find('.teachers__member-name').text(),
+				content = $(item).find('.teachers__text-full').html(),
+				img = $(item).find('.teachers__member-img img').clone();
+
+			$(modal).find('.modal__title').text(caption);
+			$(modal).find('.modal__content').html(content).prepend(img);
 		}
 
 		$(modal).bPopup();
@@ -77,4 +96,6 @@ $(function(){
 			$(message).removeClass('show');
 		}, 3000);
 	});
+
+	$('select').niceSelect();
 });
