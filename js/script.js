@@ -98,4 +98,9 @@ $(function(){
 	});
 
 	$('select').niceSelect();
+
+	$('.reviews').slick({
+		slidesToShow: 4,
+		adaptiveHeight: true
+	});
 });
