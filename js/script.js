@@ -1,1 +1,113 @@
-$(function(){$(".sphere").each(function(e,t){var l=$(t).data("color");$(t).css("background-color",l)}),$(".module").each(function(e,t){$(t).children().length>1&&$(t).slick({infinite:!1})}),$(".gallery").slick({slidesToShow:2,draggable:!1}),$(".gallery__item").on("click",function(){var e=$(this).find("img").clone();$.fancybox.open(e)}),function(){var e=$("#scene").get(0),t=$("#scene2").get(0);new Parallax(e),new Parallax(t)}(),window.sr=ScrollReveal(),sr.reveal(".section__title h2, .section__cell, .about__text, .about__person-img, .events__info, .section .btn"),sr.reveal(".welcome .sphere",520),sr.reveal(".mission .sphere"),sr.reveal(".welcome .point",200),sr.reveal(".welcome__logo > *",{duration:1e3,scale:.5},200),sr.reveal(".welcome__slogan",{delay:1e3}),sr.reveal(".teachers__member"),sr.reveal(".steps__item"),sr.reveal(".request .form > *"),sr.reveal(".quest__item"),sr.reveal(".footer__cell"),$("[data-modal]").on("click",function(e){e.preventDefault();var t=$(this).data("modal"),l=$("#"+t);if("text-modal"===t){var n=$(this).closest(".section__row"),o=$(n).find(".caption").text(),s=$(this).parent().find(".module__content").html();$(l).find(".modal__title").text(o),$(l).find(".modal__content").html(s)}else if("answer-modal"===t){var n=$(this).closest(".quest__item"),o=$(n).find(".quest__title span").text(),s=$(n).find(".quest__content-full").html();$(l).find(".modal__title").text(o),$(l).find(".modal__content").html(s)}else if("teacher-modal"===t){var n=$(this).closest(".teachers__member"),o=$(n).find(".teachers__member-name").text(),s=$(n).find(".teachers__text-full").html(),a=$(n).find(".teachers__member-img img").clone();$(l).find(".modal__title").text(o),$(l).find(".modal__content").html(s).prepend(a)}$(l).bPopup()}),$(".form__submit").on("click",function(e){e.preventDefault();var t=$(this).closest("form"),l=$(t).find(".form__message").get(0);$(l).addClass("show"),setTimeout(function(){$(l).removeClass("show")},3e3)}),$("select").niceSelect(),$(".reviews").slick({slidesToShow:4})});
+$(function(){
+	$('.sphere').each(function(i, sp) {
+		var color = $(sp).data('color');
+		$(sp).css('background-color', color);
+	})
+
+	$('.module').each(function(i, module) {
+		if ($(module).children().length > 1) {
+			$(module).slick({
+				infinite: false
+			});
+		}
+	});
+
+	$('.gallery').slick({
+		slidesToShow: 2,
+		draggable: false
+	});
+
+	$('.gallery__item').on('click', function() {
+		var img = $(this).find('img').clone();
+
+		$.fancybox.open(img)
+	});
+
+	function bubles() {
+		var scene = $('#scene').get(0),
+			scene2 = $('#scene2').get(0);
+
+		var parallaxInstance = new Parallax(scene),
+			parallaxInstance2 = new Parallax(scene2);
+	}
+
+	bubles();
+
+	window.sr = ScrollReveal();
+
+	// анимации
+	sr.reveal('.section__title h2, .section__cell, .about__text, .about__person-img, .events__info, .section .btn');
+	// sr.reveal('.gallery');
+
+	sr.reveal('.welcome .sphere', 520);
+	sr.reveal('.mission .sphere');
+	sr.reveal('.welcome .point', 200);
+	sr.reveal('.welcome__logo > *', { duration: 1000, scale: .5 }, 200);
+	sr.reveal('.welcome__slogan', { delay: 1000 });
+	sr.reveal('.teachers__member');
+	sr.reveal('.steps__item');
+	sr.reveal('.request .form > *');
+	sr.reveal('.quest__item');
+	sr.reveal('.footer__cell');
+	
+	$('[data-modal]').on('click', function(e) {
+		e.preventDefault();
+
+		var id = $(this).data('modal'),
+			modal = $('#'+id);
+
+		if (id === 'text-modal') {
+			var item = $(this).closest('.section__row'),
+				caption = $(item).find('.caption').text(),
+				content = $(this).parent().find('.module__content').html();
+
+			$(modal).find('.modal__title').text(caption);
+			$(modal).find('.modal__content').html(content);
+		} else if (id === 'answer-modal') {
+			var item = $(this).closest('.quest__item'),
+				caption = $(item).find('.quest__title span').text(),
+				content = $(item).find('.quest__content-full').html();
+
+			$(modal).find('.modal__title').text(caption);
+			$(modal).find('.modal__content').html(content);
+		} else if (id === 'teacher-modal') {
+			var item = $(this).closest('.teachers__member'),
+				caption = $(item).find('.teachers__member-name').text(),
+				content = $(item).find('.teachers__text-full').html(),
+				img = $(item).find('.teachers__member-img img').clone();
+
+			$(modal).find('.modal__title').text(caption);
+			$(modal).find('.modal__content').html(content).prepend(img);
+		}
+
+		$(modal).bPopup();
+
+	});
+
+	$('.form__submit').on('click', function(e) {
+		e.preventDefault();
+
+		var form = $(this).closest('form'),
+			message = $(form).find('.form__message').get(0);
+
+		$(message).addClass('show');
+
+		setTimeout(function() {
+			$(message).removeClass('show');
+		}, 3000);
+	});
+
+	$('select').niceSelect();
+
+	$('.reviews').slick({
+		slidesToShow: 4
+	});
+
+	$('[data-scroll]').on('click', function(e) {
+		e.preventDefault();
+		
+	    $('html, body').animate({
+	        scrollTop: $( $.attr(this, 'href') ).offset().top
+	    }, 1000);
+	});
+});
